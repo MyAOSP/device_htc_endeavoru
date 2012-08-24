@@ -6,6 +6,8 @@ ro.opengles.version = 131072
 
 #Common display settings
 ro.sf.lcd_density=320
+ro.hwui.text_cache_width=2048
+ro.hwui.text_cache_height=256
 debug.sf.hw=1
 persist.sys.ui.hw = 1
 windowsmgr.max_events_per_sec = 240
