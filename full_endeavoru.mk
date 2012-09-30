@@ -49,11 +49,14 @@ PRODUCT_COPY_FILES += \
 	device/htc/endeavoru/configs/hostapd.conf:system/etc/wifi/hostapd.conf \
 	device/htc/endeavoru/configs/TQS_D_1.7.ini:system/etc/wifi/TQS_D_1.7.ini \
 	device/htc/endeavoru/configs/htc_1281fw.bin:system/etc/wifi/htc_1281fw.bin \
-	device/htc/endeavoru/configs/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
+	device/htc/endeavoru/configs/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
+        system/bluetooth/data/main.conf:system/etc/bluetooth/main.conf 
 
-# BT config
+# hotspot prebuilt
 PRODUCT_COPY_FILES += \
-  system/bluetooth/data/main.conf:system/etc/bluetooth/main.conf
+	device/htc/endeavoru/prebuilt/bin/iptables:system/bin/iptables \
+	device/htc/endeavoru/prebuilt/bin/netd:system/bin/netd \
+	device/htc/endeavoru/prebuilt/bin/wpa_supplicant:system/bin/wpa_supplicant
 
 # Prebuilt Alsa configs
 PRODUCT_COPY_FILES += \
