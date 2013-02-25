@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- * Copyright (C) 2012 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +25,16 @@
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
+#define SCALINGMAXFREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+#define SCREENOFFMAXFREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq"
 #define BOOST_PATH      "/sys/devices/system/cpu/cpufreq/interactive/boost"
+
+#define MAX_BUF_SZ  10
+
+/* initialize to something safe */
+static char screen_off_max_freq[MAX_BUF_SZ] = "475000";
+static char scaling_max_freq[MAX_BUF_SZ] = "1200000";
+
 static int boost_fd = -1;
 static int boost_warned;
 
@@ -51,41 +59,54 @@ static void sysfs_write(char *path, char *s)
     close(fd);
 }
 
+int sysfs_read(const char *path, char *buf, size_t size)
+{
+    int fd, len;
+
+    fd = open(path, O_RDONLY);
+    if (fd < 0)
+      return -1;
+
+    do {
+      len = read(fd, buf, size);
+    } while (len < 0 && errno == EINTR);
+
+    close(fd);
+
+    return len;
+}
+
 static void endeavoru_power_init(struct power_module *module)
 {
     /*
      * cpufreq interactive governor: timer 20ms, min sample 100ms,
      * hispeed 700MHz at load 40%
      */
-    /* handle this in the new init.tegra.post_boot.sh
+
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate",
                 "20000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time",
                 "30000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load",
-                "80");
+                "85");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
 		"0");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/input_boost",
 		"1");
-    */
 }
 
 static void endeavoru_power_set_interactive(struct power_module *module, int on)
 {
+    int len;
+
+    char buf[MAX_BUF_SZ];
+
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/input_boost",
                 on ? "1" : "0");
 
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
                 on ? "0" : "2");
 
-    /*
-     * The new interactive governor (grouper) calls this value "boost"
-     * Set this value too for highest compatibility. (in case of backports)
-     * That interactive version only distincts between 0 and 1.
-     */
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_val",
-                on ? "0" : "1");
 }
 
 static void endeavoru_power_hint(struct power_module *module, power_hint_t hint,
@@ -114,7 +135,7 @@ struct power_module HAL_MODULE_INFO_SYM = {
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = POWER_HARDWARE_MODULE_ID,
         .name = "Endeavoru Power HAL",
-        .author = "The CyanogenMod Project",
+        .author = "The Android Open Source Project",
         .methods = &power_module_methods,
     },
 
