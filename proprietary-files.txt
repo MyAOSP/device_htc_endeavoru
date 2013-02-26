@@ -1,9 +1,9 @@
 # ril
 lib/librilpos.so
 lib/libhtc_ril.so
-bin/rilposd
-bin/rild
-bin/pollyd
+#bin/rilposd
+#bin/rild
+#bin/pollyd
 
 # WVM
 lib/libWVStreamControlAPI_L1.so
