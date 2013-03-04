@@ -69,7 +69,6 @@ bin/getnvm.sh
 bin/IMCdownload
 bin/make_sec_bin
 bin/poweroff_modem.sh
-bin/poweron_modem_hboot.sh
 bin/poweron_modem_fls.sh
 bin/InjectionTool
 bin/IMCdownload
