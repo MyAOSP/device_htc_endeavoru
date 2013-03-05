@@ -73,7 +73,7 @@ PRODUCT_COPY_FILES += \
 
 # video
 PRODUCT_PACKAGES += \
-        libstagefrighthw
+        libstagefrighthw-htc
 
 # Lights
 PRODUCT_PACKAGES += \
