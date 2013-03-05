@@ -1,9 +1,10 @@
 # ril
 lib/librilpos.so
 lib/libhtc_ril.so
-#bin/rilposd
-#bin/rild
-#bin/pollyd
+
+# hostapd
+bin/netd
+bin/wpa_supplicant
 
 # WVM
 lib/libWVStreamControlAPI_L1.so

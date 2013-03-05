@@ -33,6 +33,6 @@ LOCAL_SHARED_LIBRARIES :=       \
         libdl                   \
         libui                   \
 
-LOCAL_MODULE := libstagefrighthw-htc
+LOCAL_MODULE := libstagefrighthw
 
 include $(BUILD_SHARED_LIBRARY)
