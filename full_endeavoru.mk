@@ -194,3 +194,10 @@ $(call inherit-product-if-exists, hardware/ti/wan/mac80211/Android.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product-if-exists, vendor/htc/endeavoru/endeavoru-vendor.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+
+# Device naming
+PRODUCT_DEVICE := endeavoru
+PRODUCT_NAME := baked_endeavoru
+PRODUCT_BRAND := htc
+PRODUCT_MODEL := HTC One X
+PRODUCT_MANUFACTURER := HTC
