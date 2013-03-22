@@ -152,7 +152,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/prebuilt/etc/gpu_oc_on:system/etc/gpu_oc_on \
         $(LOCAL_PATH)/prebuilt/etc/gpu_oc_off:system/etc/gpu_oc_off
-		
+
 # Permissions
 PRODUCT_COPY_FILES += \
         frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
@@ -197,7 +197,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 # Device naming
 PRODUCT_DEVICE := endeavoru
-PRODUCT_NAME := baked_endeavoru
 PRODUCT_BRAND := htc
 PRODUCT_MODEL := HTC One X
 PRODUCT_MANUFACTURER := HTC
